@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>시안 C · 피지컬 AI 런칭</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F2F0; --fg:#18181B; --muted:#71717A; --core:#FAFAF9; --ring:rgba(0,0,0,.06);
+  --accent:#C2410C; /* 구리 산화색 */ --dark:#1C1917;
+  --sans:"Pretendard",system-ui,sans-serif; --mono:"JetBrains Mono",monospace;
+  --ease:cubic-bezier(.32,.72,0,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.eyebrow{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:var(--core);box-shadow:0 0 0 1px var(--ring)}
+.mono{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+.blob{position:fixed;top:-20vh;right:-10vw;width:70vw;height:70vw;border-radius:50%;background:radial-gradient(circle,#F59E0B 0%,transparent 60%);opacity:.14;pointer-events:none;z-index:-1;animation:drift 28s var(--ease) infinite alternate}
+@keyframes drift{to{transform:translate(-10vw,12vh)}}
+
+nav{position:sticky;top:20px;z-index:20;margin:24px auto 0;width:max-content;max-width:calc(100% - 32px);display:flex;gap:4px;align-items:center;padding:6px;border-radius:999px;background:rgba(250,250,249,.7);backdrop-filter:blur(24px);box-shadow:0 0 0 1px var(--ring),0 20px 40px -15px rgba(0,0,0,.08);font-size:14px}
+nav a{padding:8px 14px;border-radius:999px;color:var(--muted);transition:color .3s var(--ease)}
+nav a:hover{color:var(--fg)}
+nav a.go{background:var(--fg);color:#fff}
+@media(max-width:600px){nav .hide-m{display:none}}
+
+.cta{display:inline-flex;align-items:center;gap:12px;padding:8px 8px 8px 24px;border-radius:999px;background:var(--fg);color:#fff;font-weight:600;transition:transform .7s var(--ease)}
+.cta i{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.12);font-style:normal;transition:transform .7s var(--ease)}
+.cta:hover i{transform:translate(1px,-1px) scale(1.05)}
+.cta:active{transform:scale(.98)}
+.ghost{display:inline-flex;align-items:center;padding:14px 22px;border-radius:999px;box-shadow:0 0 0 1px var(--ring);background:var(--core);font-weight:600}
+
+.hero{min-height:100dvh;display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center;padding:80px 0}
+.hero h1{font-weight:800;font-size:clamp(44px,7vw,96px);line-height:1.02;letter-spacing:-.035em;margin:20px 0 24px}
+.hero h1 span{color:var(--accent)}
+.hero p{max-width:52ch;color:var(--muted);font-size:18px}
+.hero .btns{display:flex;gap:12px;margin-top:36px;flex-wrap:wrap}
+@media(max-width:860px){.hero{grid-template-columns:1fr;min-height:auto;padding:72px 0 48px}}
+
+/* double bezel */
+.bezel{padding:6px;border-radius:2rem;background:rgba(255,255,255,.5);box-shadow:0 0 0 1px var(--ring),0 20px 40px -15px rgba(0,0,0,.06)}
+.core{border-radius:calc(2rem - 6px);background:var(--core);padding:28px;height:100%}
+
+section{padding:112px 0}
+.head{max-width:640px;margin-bottom:48px}
+.head h2{font-weight:800;font-size:clamp(32px,4.4vw,56px);line-height:1.08;letter-spacing:-.03em;margin-top:16px}
+
+.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:minmax(200px,auto);gap:16px}
+.wide{grid-column:span 2}.tall{grid-row:span 2}
+.bento h3{font-size:20px;font-weight:700;letter-spacing:-.01em;margin:10px 0 8px}
+.bento p{color:var(--muted);font-size:15px}
+.status{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--accent)}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s var(--ease) infinite}
+@keyframes pulse{50%{opacity:.3}}
+.ph{color:var(--fg);background:#FDE7DB;border-radius:6px;padding:0 6px}
+@media(max-width:860px){.bento{grid-template-columns:1fr}.wide,.tall{grid-column:auto;grid-row:auto}}
+
+.marquee{overflow:hidden;padding:28px 0;border-top:1px solid var(--ring);border-bottom:1px solid var(--ring);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.track{display:flex;gap:56px;width:max-content;animation:slide 30s linear infinite;font-weight:700;font-size:22px;color:#A1A1AA;letter-spacing:-.01em}
+.marquee:hover .track{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.split ol{list-style:none;counter-reset:s}
+.split li{padding:18px 0;border-top:1px solid var(--ring);display:flex;gap:16px}
+.split li::before{counter-increment:s;content:"0" counter(s);font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:3px}
+@media(max-width:860px){.split{grid-template-columns:1fr}}
+
+.dark{background:var(--dark);color:#FAFAF9;border-radius:2.5rem;padding:96px 48px;margin:0 0 48px;position:relative;overflow:hidden}
+.dark h2{font-weight:800;font-size:clamp(34px,5vw,64px);line-height:1.06;letter-spacing:-.03em;max-width:16ch}
+.dark .cta{background:#FAFAF9;color:var(--dark);margin-top:36px}
+.dark .cta i{background:rgba(0,0,0,.08)}
+@media(max-width:600px){.dark{padding:64px 24px;border-radius:2rem}}
+footer{border-top:1px solid var(--ring);padding:24px 0 48px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+.js .reveal{opacity:0;transform:translateY(16px);filter:blur(8px);transition:all .9s var(--ease)}
+.js .reveal.in{opacity:1;transform:none;filter:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.js .reveal{opacity:1;transform:none;filter:none}}
+</style>
+</head>
+<body>
+<div class="blob"></div>
+<nav>
+  <a href="#project" class="hide-m">프로젝트</a><a href="#skills" class="hide-m">역량</a><a href="#goal" class="hide-m">목표</a>
+  <a class="go" href="resume.pdf" download>이력서 PDF ↓</a>
+</nav>
+
+<main class="wrap">
+  <header class="hero">
+    <div>
+      <span class="eyebrow">재료공학 · Physical AI</span>
+      <h1>소재를 알고,<br><span>움직이는 AI</span>를<br>만드는 [이름]</h1>
+      <p>로봇의 손끝이 무엇을 만지는지는 결국 소재의 문제입니다. 재료공학을 전공하며 피지컬 AI 프로젝트를 직접 진행하고 있습니다.</p>
+      <div class="btns">
+        <a class="cta" href="resume.pdf" download>이력서 다운로드 (PDF) <i>↓</i></a>
+        <a class="ghost" href="#project">프로젝트 먼저 보기</a>
+      </div>
+    </div>
+    <div class="bezel"><div class="core" style="display:flex;align-items:center;justify-content:center;min-height:380px">
+      <svg viewBox="0 0 300 300" width="90%" role="img" aria-label="로봇 그리퍼가 결정 구조 큐브를 잡고 있는 일러스트">
+        <rect x="120" y="10" width="60" height="70" rx="14" fill="#E4E4E7"/>
+        <rect x="70" y="80" width="160" height="30" rx="12" fill="#D4D4D8"/>
+        <path d="M88 110 V200 Q88 220 110 228" fill="none" stroke="#52525B" stroke-width="14" stroke-linecap="round"/>
+        <path d="M212 110 V200 Q212 220 190 228" fill="none" stroke="#52525B" stroke-width="14" stroke-linecap="round"/>
+        <g transform="translate(118 196)">
+          <rect width="64" height="64" rx="6" fill="#FAFAF9" stroke="#A1A1AA"/>
+          <g fill="#C2410C"><circle cx="0" cy="0" r="6"/><circle cx="64" cy="0" r="6"/><circle cx="0" cy="64" r="6"/><circle cx="64" cy="64" r="6"/><circle cx="32" cy="32" r="7"/></g>
+        </g>
+        <circle cx="110" cy="228" r="5" fill="#C2410C"/><circle cx="190" cy="228" r="5" fill="#C2410C"/>
+      </svg>
+    </div></div>
+  </header>
+</main>
+
+<div class="marquee" aria-label="다뤄 본 장비와 도구">
+  <div class="track">
+    <span>XRD</span><span>SEM / EDS</span><span>UTM</span><span>DSC</span><span>열처리</span><span>Python</span><span>PyTorch</span><span>ROS</span><span>Arduino</span><span>Origin</span><span>MATLAB</span>
+    <span>XRD</span><span>SEM / EDS</span><span>UTM</span><span>DSC</span><span>열처리</span><span>Python</span><span>PyTorch</span><span>ROS</span><span>Arduino</span><span>Origin</span><span>MATLAB</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <section id="project">
+    <div class="head reveal"><span class="eyebrow">Main Project</span><h2>지금 만들고 있는 피지컬 AI</h2></div>
+    <div class="bento">
+      <div class="bezel wide tall reveal"><div class="core">
+        <span class="status">진행 중 · 2/4 단계</span>
+        <h3 style="font-size:28px;line-height:1.25">[한 줄 요약: 예) 촉각 센서로 재질을 인식해 잡는 힘을 조절하는 그리퍼]</h3>
+        <p>피지컬 AI의 성능은 센서와 액추에이터 소재가 좌우합니다. 그래서 재료공학도가 이 팀에 있습니다.</p>
+        <div style="margin-top:28px;border-radius:1.25rem;background:#F4F4F5;aspect-ratio:16/8;display:grid;place-items:center" class="mono">[ 시연 영상 · GIF 자리 ]</div>
+      </div></div>
+      <div class="bezel reveal"><div class="core"><span class="mono">내 역할</span><h3>[소재 선정 · 물성 시험]</h3><p>[데이터 수집 · 모델 학습 중 맡은 부분]</p></div></div>
+      <div class="bezel reveal"><div class="core"><span class="mono">배운 점</span><h3>[한 줄]</h3><p>전공 지식이 AI 프로젝트에서 어떻게 쓰였는지</p></div></div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="head reveal"><span class="eyebrow">Background</span><h2>전공에서 쌓은 것</h2></div>
+    <div class="bento">
+      <div class="bezel reveal"><div class="core"><span class="mono">About</span><h3>[학교] 재료공학과</h3><p>[학년] · 관심 분야 <span class="ph">[예) 이차전지 소재]</span></p></div></div>
+      <div class="bezel reveal"><div class="core"><span class="mono">졸업 설계</span><h3>[프로젝트명]</h3><p>[목표 → 결과]</p></div></div>
+      <div class="bezel reveal"><div class="core"><span class="mono">학부연구생</span><h3>[연구 주제]</h3><p>[목표 → 결과]</p></div></div>
+      <div class="bezel wide reveal"><div class="core">
+        <span class="mono">활동 · 경력</span>
+        <p style="margin-top:12px;color:var(--fg)">[기간] 피지컬 AI 프로젝트 · [역할]<br>[기간] [인턴 · 공모전 · 학회]<br>[기간] [동아리 · 대외활동]</p>
+      </div></div>
+      <div class="bezel reveal"><div class="core"><span class="mono">자격 · 어학</span><h3>[자격증]</h3><p>[어학 점수]</p></div></div>
+    </div>
+  </section>
+
+  <section id="goal">
+    <div class="split">
+      <div class="reveal"><span class="eyebrow">After Joining</span><h2 style="font-weight:800;font-size:clamp(32px,4.4vw,56px);line-height:1.08;letter-spacing:-.03em;margin-top:16px">입사 후<br>이렇게 일하겠습니다</h2></div>
+      <ol class="reveal">
+        <li>1년 차 — [지원 직무]의 공정과 장비를 손에 익히고, 현장 데이터를 정리하겠습니다.</li>
+        <li>3년 차 — 소재 데이터와 AI를 연결하는 과제를 제안하겠습니다.</li>
+        <li>[로봇·센서 소재 / 공정 데이터 분석] 분야에 기여하겠습니다.</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="dark reveal">
+    <span class="eyebrow" style="background:rgba(255,255,255,.08);color:#D6D3D1;box-shadow:none">Resume</span>
+    <h2 style="margin-top:18px">더 자세한 내용은 이력서에 정리해 두었습니다.</h2>
+    <a class="cta" href="resume.pdf" download>이력서 다운로드 (PDF) <i>↓</i></a>
+    <p class="mono" style="margin-top:18px;color:#A8A29E">또는 <a href="mailto:[이메일]" style="text-decoration:underline">[이메일]</a></p>
+  </div>
+</main>
+<footer class="wrap mono">
+  <span>© 2026 [이름] · 강의 실습용 포트폴리오</span><span>일러스트 직접 제작 · 사진 출처 [표기]</span>
+</footer>
+<script>
+document.documentElement.classList.add('js');
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

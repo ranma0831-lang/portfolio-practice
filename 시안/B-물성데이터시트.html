@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>시안 B · 물성 데이터시트</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F4F0; --ink:#050505; --red:#E61919; --dim:#5A5A55;
+  --display:"Archivo Black","Pretendard",sans-serif; --sans:"Pretendard",sans-serif; --mono:"IBM Plex Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.55;overflow-x:hidden}
+a{color:inherit}
+.m{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-variant-numeric:tabular-nums}
+.pad{padding:0 24px}
+
+.register{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);display:flex;justify-content:space-between;gap:16px;padding:8px 24px;flex-wrap:wrap}
+.register a{text-decoration:none}
+.register a:active,.btn:active{background:var(--ink);color:var(--paper)}
+
+.hero{display:grid;grid-template-columns:1fr 340px;border-bottom:1px solid var(--ink)}
+.hero .big{padding:32px 24px 24px;border-right:1px solid var(--ink);overflow:hidden}
+.hero h1{font-family:var(--display);font-weight:900;font-size:clamp(4rem,13vw,15rem);line-height:.86;letter-spacing:-.04em;text-transform:uppercase;white-space:nowrap}
+.hero h1 .x{color:var(--red)}
+.hero .kr{font-weight:800;font-size:clamp(22px,2.6vw,34px);letter-spacing:-.02em;margin-top:28px;max-width:24ch;line-height:1.25}
+.hero .side{display:flex;flex-direction:column}
+.hero .side>div{padding:18px 24px;border-bottom:1px solid var(--ink)}
+.hero .side>div:last-child{border-bottom:0;flex:1;display:flex;align-items:flex-end}
+.tile{border:2px solid var(--ink);width:150px;padding:10px 12px;background:var(--paper)}
+.tile .sym{font-family:var(--display);font-size:64px;line-height:1}
+.btn{display:block;text-align:center;text-decoration:none;font-family:var(--mono);font-size:14px;letter-spacing:.08em;text-transform:uppercase;padding:18px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);width:100%;transition:none}
+.btn:hover{background:var(--red);border-color:var(--red)}
+@media(max-width:860px){.hero{grid-template-columns:1fr}.hero .big{border-right:0;border-bottom:1px solid var(--ink)}}
+
+section{border-bottom:1px solid var(--ink);padding:64px 24px}
+.label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:36px;gap:16px;flex-wrap:wrap}
+.label h2{font-family:var(--display);font-size:clamp(36px,6vw,80px);line-height:.9;letter-spacing:-.03em;text-transform:uppercase}
+.label h2 small{display:block;font-family:var(--sans);font-weight:800;font-size:clamp(18px,2vw,24px);letter-spacing:-.01em;margin-top:10px;text-transform:none}
+
+/* 물성표 */
+.spec{display:grid;grid-template-columns:180px 1fr 1fr 140px;gap:1px;background:var(--ink);border:1px solid var(--ink)}
+.spec>div{background:var(--paper);padding:14px 16px}
+.spec .h{background:var(--ink);color:var(--paper)}
+@media(max-width:760px){.spec{grid-template-columns:1fr 1fr}.spec .hide-m{display:none}}
+
+/* 대표 프로젝트 */
+.feature{display:grid;grid-template-columns:1.1fr .9fr;gap:1px;background:var(--ink);border:1px solid var(--ink)}
+.feature>div{background:var(--paper);padding:28px}
+.feature h3{font-weight:900;font-size:clamp(26px,3vw,40px);line-height:1.15;letter-spacing:-.02em;margin:14px 0 18px}
+.stamp{display:inline-block;border:2px solid var(--red);color:var(--red);padding:4px 10px;transform:rotate(-2deg)}
+.rows{display:grid;grid-template-columns:120px 1fr;border-top:1px solid var(--ink)}
+.rows>*{padding:12px 0;border-bottom:1px solid var(--ink)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--ink);border:1px solid var(--ink);margin-top:24px}
+.steps>div{background:var(--paper);padding:10px}
+.steps .on{background:var(--ink);color:var(--paper)}
+@media(max-width:860px){.feature{grid-template-columns:1fr}}
+
+/* 테제 */
+.theses{list-style:none}
+.theses li{display:grid;grid-template-columns:90px 1fr;gap:16px;padding:22px 0;border-top:1px solid var(--ink)}
+.theses li:last-child{border-bottom:1px solid var(--ink)}
+.theses b{font-family:var(--display);font-size:32px;line-height:1;font-weight:400}
+.theses p{font-size:clamp(18px,2vw,24px);font-weight:700;letter-spacing:-.01em;max-width:40ch}
+.theses .ph{color:var(--red)}
+
+.others{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ink);border:1px solid var(--ink)}
+.others>div{background:var(--paper);padding:20px;min-height:200px;display:flex;flex-direction:column;justify-content:space-between}
+.others h4{font-weight:900;font-size:22px;letter-spacing:-.01em}
+@media(max-width:760px){.others{grid-template-columns:1fr}}
+
+.closing{display:grid;grid-template-columns:1fr 360px;gap:32px;align-items:end}
+.closing h2{font-family:var(--display);font-size:clamp(48px,9vw,140px);line-height:.86;letter-spacing:-.04em;text-transform:uppercase}
+@media(max-width:860px){.closing{grid-template-columns:1fr}}
+.colophon{padding:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:760px){.colophon{grid-template-columns:1fr 1fr}}
+.js .reveal{opacity:0}.js .reveal.in{opacity:1}
+</style>
+</head>
+<body>
+<div class="register m">
+  <span>[ MATERIAL SPEC SHEET ]</span><span>No. [학번]</span><span>ED. 2026.10</span><span>재료공학 × PHYSICAL AI</span>
+  <a href="resume.pdf" download>>>> 이력서 PDF</a>
+</div>
+
+<header class="hero">
+  <div class="big">
+    <p class="m" style="margin-bottom:18px">/// 지원자 물성 데이터</p>
+    <h1>MAT<span class="x">×</span><br>AI</h1>
+    <p class="kr">소재를 이해하고 피지컬 AI로 연결하는 재료공학도, [이름].</p>
+  </div>
+  <div class="side">
+    <div class="m">[ 이름 ]<br><b style="font-size:16px;letter-spacing:0">[이름]</b></div>
+    <div class="m">[ 소속 ]<br>[학교] 재료공학과 · [학년]</div>
+    <div class="m">[ 지원 직무 ]<br>[공정기술 / 품질 / R&amp;D]</div>
+    <div class="m">[ 현재 ]<br>피지컬 AI 프로젝트 진행 중</div>
+    <div style="flex-direction:column;align-items:stretch;gap:16px">
+      <div class="tile" aria-label="주기율표 원소 카드 모양의 이름 표기">
+        <div class="m" style="display:flex;justify-content:space-between"><span>[번호]</span><span>신입</span></div>
+        <div class="sym">[Me]</div>
+        <div class="m">[이름]</div>
+      </div>
+      <a class="btn" href="resume.pdf" download>이력서 다운로드 (PDF) ↓</a>
+    </div>
+  </div>
+</header>
+
+<section class="reveal">
+  <div class="label"><h2>01 / Spec<small>직접 다뤄 본 장비와 도구</small></h2><span class="m">[ 숙련도는 실제 경험으로 기입 ]</span></div>
+  <div class="spec m">
+    <div class="h">구분</div><div class="h">항목</div><div class="h hide-m">사용 맥락</div><div class="h">숙련도</div>
+    <div>분석 장비</div><div>XRD · SEM/EDS</div><div class="hide-m">[실험 과목 / 연구실]</div><div>[■■■□]</div>
+    <div>기계 시험</div><div>UTM · 경도계</div><div class="hide-m">[실험 과목]</div><div>[■■□□]</div>
+    <div>공정</div><div>열처리 · 소결</div><div class="hide-m">[실험 과목]</div><div>[■■□□]</div>
+    <div>AI</div><div>Python · PyTorch</div><div class="hide-m">피지컬 AI 프로젝트</div><div>[■■■□]</div>
+    <div>하드웨어</div><div>ROS · Arduino</div><div class="hide-m">피지컬 AI 프로젝트</div><div>[■■□□]</div>
+    <div>툴</div><div>Origin · MATLAB</div><div class="hide-m">[보고서 작성]</div><div>[■■■□]</div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="label"><h2>02 / Main<small>대표 프로젝트 · 피지컬 AI</small></h2><span class="stamp m">진행 중</span></div>
+  <div class="feature">
+    <div>
+      <span class="m">>>> PROJECT 001</span>
+      <h3>[한 줄 요약: 예) 촉각 센서로 재질을 인식해 잡는 힘을 조절하는 그리퍼]</h3>
+      <div class="rows">
+        <span class="m">왜</span><span>피지컬 AI는 센서·액추에이터 소재가 성능을 좌우한다. 재료공학도가 필요한 이유.</span>
+        <span class="m">내 역할</span><span>[소재 선정 · 물성 시험 · 데이터 수집 · 모델 학습]</span>
+        <span class="m">방법</span><span>[장비 · 모델 · 하드웨어]</span>
+        <span class="m">배운 점</span><span>[한 줄]</span>
+      </div>
+      <div class="steps m"><div class="on">01 기획</div><div class="on">02 시제품</div><div>03 학습</div><div>04 검증</div></div>
+    </div>
+    <div>
+      <span class="m">FIG. 01 — 센서 출력 vs 접촉 압력 (예시 곡선)</span>
+      <svg viewBox="0 0 320 260" width="100%" style="margin-top:16px" role="img" aria-label="센서 출력 그래프 예시">
+        <g stroke="#050505" stroke-width="1"><line x1="40" y1="220" x2="310" y2="220"/><line x1="40" y1="220" x2="40" y2="20"/></g>
+        <g stroke="#050505" stroke-width=".5" opacity=".25"><line x1="40" y1="170" x2="310" y2="170"/><line x1="40" y1="120" x2="310" y2="120"/><line x1="40" y1="70" x2="310" y2="70"/></g>
+        <path d="M40 218 C90 200 120 120 170 95 S260 60 305 55" fill="none" stroke="#E61919" stroke-width="2.5"/>
+        <g font-family="IBM Plex Mono" font-size="10" fill="#050505"><text x="250" y="238">PRESSURE</text><text x="6" y="16">OUTPUT</text></g>
+      </svg>
+      <p class="m" style="margin-top:8px">[ 실제 측정 그래프 · 시연 GIF로 교체 ]</p>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="label"><h2>03 / Index<small>그 밖의 프로젝트</small></h2></div>
+  <div class="others">
+    <div><span class="m">002 · 졸업 설계</span><h4>[프로젝트명]</h4><span class="m">[목표 → 결과]</span></div>
+    <div><span class="m">003 · 학부연구생</span><h4>[연구 주제]</h4><span class="m">[목표 → 결과]</span></div>
+    <div><span class="m">004 · 활동</span><h4>[공모전 · 인턴 · 학회]</h4><span class="m">[기간 · 역할]</span></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="label"><h2>04 / Theses<small>이런 엔지니어가 되겠습니다</small></h2></div>
+  <ol class="theses">
+    <li><b>01.</b><p>장비 이름보다 <span class="ph">측정값을 해석하는 이유</span>를 먼저 설명하겠습니다.</p></li>
+    <li><b>02.</b><p>1년 차에는 [지원 직무]의 공정과 장비를 손에 익히겠습니다.</p></li>
+    <li><b>03.</b><p>3년 차에는 소재 데이터와 AI를 연결하는 과제를 제안하겠습니다.</p></li>
+  </ol>
+</section>
+
+<section class="reveal">
+  <div class="closing">
+    <h2>Read<br>the<br>Full<span style="color:var(--red)">.</span></h2>
+    <div>
+      <p style="font-weight:700;font-size:20px;margin-bottom:20px">더 자세한 내용은 이력서에 정리해 두었습니다.</p>
+      <a class="btn" href="resume.pdf" download>이력서 다운로드 (PDF) ↓</a>
+      <p class="m" style="margin-top:14px">또는 <a href="mailto:[이메일]">[이메일]</a></p>
+    </div>
+  </div>
+</section>
+
+<footer class="colophon m">
+  <span>[ 발행 ] [이름]</span><span>[ 판 ] 강의 실습용 · 미운영</span><span>[ 서체 ] Archivo Black · Pretendard · Plex Mono</span><span>[ 도판 ] 직접 제작 SVG · [사진 출처]</span>
+</footer>
+<script>
+document.documentElement.classList.add('js');
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

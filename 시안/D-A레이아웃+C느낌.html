@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[이름] 포트폴리오</title>
+<meta name="description" content="재료공학 × AI × 피지컬 AI — [이름]의 취업 포트폴리오">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F2F0; --fg:#18181B; --muted:#71717A; --core:#FAFAF9; --sunk:#F4F4F5; --ring:rgba(0,0,0,.06);
+  --accent:#C2410C; /* 구리 산화색 — 화면당 1~2번만 */
+  --tint:#FDE7DB; --dark:#1C1917;
+  --sans:"Pretendard",system-ui,sans-serif; --mono:"JetBrains Mono",monospace;
+  --ease:cubic-bezier(.32,.72,0,1); --r:2rem;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.mono{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.02em}
+.eyebrow{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:var(--core);box-shadow:0 0 0 1px var(--ring);color:var(--muted)}
+.chip{display:inline-block;font-family:var(--mono);font-size:11px;padding:4px 10px;border-radius:999px;background:var(--sunk);color:#3F3F46}
+.ph{background:var(--tint);border-radius:6px;padding:0 6px}
+
+.blob{position:fixed;top:-25vh;right:-15vw;width:70vw;height:70vw;border-radius:50%;background:radial-gradient(circle,#F59E0B 0%,transparent 60%);opacity:.13;pointer-events:none;z-index:-1;animation:drift 28s var(--ease) infinite alternate}
+@keyframes drift{to{transform:translate(-10vw,14vh)}}
+
+/* nav */
+nav{position:sticky;top:20px;z-index:20;margin:24px auto 0;width:max-content;max-width:calc(100% - 32px);display:flex;gap:2px;align-items:center;padding:6px;border-radius:999px;background:rgba(250,250,249,.72);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 0 0 1px var(--ring),0 20px 40px -15px rgba(0,0,0,.08);font-size:14px}
+nav a{padding:8px 14px;border-radius:999px;color:var(--muted);transition:color .4s var(--ease)}
+nav a:hover{color:var(--fg)}
+nav a.go{background:var(--fg);color:#fff}
+@media(max-width:640px){nav .hide-m{display:none}}
+
+/* buttons */
+.cta{display:inline-flex;align-items:center;gap:12px;padding:8px 8px 8px 24px;border-radius:999px;background:var(--fg);color:#fff;font-weight:600;transition:transform .7s var(--ease)}
+.cta i{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.12);font-style:normal;transition:transform .7s var(--ease)}
+.cta:hover i{transform:translate(1px,-1px) scale(1.05)}
+.cta:active{transform:scale(.98)}
+.ghost{display:inline-flex;align-items:center;padding:14px 22px;border-radius:999px;box-shadow:0 0 0 1px var(--ring);background:var(--core);font-weight:600}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:36px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* double bezel */
+.bezel{padding:6px;border-radius:var(--r);background:rgba(255,255,255,.5);box-shadow:0 0 0 1px var(--ring),0 20px 40px -15px rgba(0,0,0,.06)}
+.core{border-radius:calc(var(--r) - 6px);background:var(--core);padding:28px;height:100%}
+
+/* hero — 시안 A의 비대칭 구성 */
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center;padding:112px 0 96px}
+.hero h1{font-weight:800;font-size:clamp(42px,6.4vw,88px);line-height:1.04;letter-spacing:-.035em;margin:20px 0 24px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lede{max-width:52ch;color:var(--muted);font-size:18px}
+.facts{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px}
+@media(max-width:860px){.hero{grid-template-columns:1fr;padding:80px 0 56px;gap:40px}}
+
+/* section shell — 왼쪽 라벨 / 오른쪽 본문 */
+section{padding:104px 0;border-top:1px solid var(--ring)}
+.head{display:grid;grid-template-columns:220px 1fr;gap:32px;margin-bottom:48px;align-items:start}
+.head h2{font-weight:800;font-size:clamp(30px,4vw,50px);line-height:1.1;letter-spacing:-.03em}
+.head p{color:var(--muted);margin-top:12px;max-width:56ch}
+@media(max-width:860px){.head{grid-template-columns:1fr;gap:14px}}
+
+.about{display:grid;grid-template-columns:220px 1fr;gap:32px}
+.about p{font-size:clamp(18px,2vw,22px);line-height:1.6;max-width:44ch;letter-spacing:-.01em}
+@media(max-width:860px){.about{grid-template-columns:1fr;gap:14px}}
+
+/* skills bento — 높이가 다른 칸 */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.bento h3{font-size:18px;font-weight:700;margin-bottom:14px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.s1{grid-column:span 4;grid-row:span 2}.s2,.s3{grid-column:span 2}.s4,.s5{grid-column:span 3}
+@media(max-width:860px){.bento>*{grid-column:span 6!important;grid-row:auto!important}}
+
+/* featured project — 그림 | 설명 */
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.feat+.feat{margin-top:20px}
+.feat .viz{display:flex;align-items:center;justify-content:center;min-height:380px;background:var(--sunk)}
+.feat h3{font-size:clamp(22px,2.4vw,30px);font-weight:800;line-height:1.3;letter-spacing:-.02em;margin:14px 0 12px}
+.feat .why{color:var(--muted)}
+.feat dl{display:grid;grid-template-columns:84px 1fr;gap:12px 16px;margin-top:22px;font-size:15px}
+.feat dt{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:3px}
+.done{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 10px;border-radius:999px;background:var(--tint);color:var(--accent)}
+.feat.flip .viz{order:2}
+@media(max-width:860px){.feat{grid-template-columns:1fr}.feat .viz{min-height:240px}.feat.flip .viz{order:0}}
+
+.plist{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.plist .thumb{height:120px;border-radius:1.1rem;background:var(--sunk);display:grid;place-items:center;margin-bottom:18px}
+.plist h4{font-size:18px;margin:6px 0 4px;letter-spacing:-.01em}
+.plist p{font-size:14px;color:var(--muted)}
+@media(max-width:860px){.plist{grid-template-columns:1fr}}
+
+/* 직무 매칭 */
+.roles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.roles h3{font-size:20px;font-weight:800;letter-spacing:-.02em;margin:10px 0 10px}
+.roles ul{list-style:none;font-size:14px;color:var(--muted)}
+.roles li{padding:8px 0;border-top:1px solid var(--ring)}
+@media(max-width:960px){.roles{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.roles{grid-template-columns:1fr}}
+
+/* timeline */
+.tl{list-style:none}
+.tl li{display:grid;grid-template-columns:220px 1fr;gap:32px;padding:20px 0;border-top:1px solid var(--ring)}
+.tl li:first-child{border-top:0}
+@media(max-width:860px){.tl li{grid-template-columns:1fr;gap:4px}}
+
+/* closing */
+.dark{background:var(--dark);color:#FAFAF9;border-radius:2.5rem;padding:96px 56px;margin:24px 0 48px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end}
+.dark h2{font-weight:800;font-size:clamp(32px,4.6vw,60px);line-height:1.08;letter-spacing:-.03em;max-width:15ch;margin-top:18px}
+.dark .cta{background:#FAFAF9;color:var(--dark)}
+.dark .cta i{background:rgba(0,0,0,.08)}
+@media(max-width:760px){.dark{grid-template-columns:1fr;padding:64px 24px;border-radius:2rem}}
+footer{border-top:1px solid var(--ring);padding:24px 0 48px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+.js .reveal{opacity:0;transform:translateY(16px);filter:blur(8px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
+.js .reveal.in{opacity:1;transform:none;filter:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}.js .reveal{opacity:1;transform:none;filter:none}}
+</style>
+</head>
+<body>
+<div class="blob" aria-hidden="true"></div>
+
+<nav aria-label="주요 메뉴">
+  <a href="#about" class="hide-m">소개</a><a href="#skills" class="hide-m">역량</a><a href="#projects">프로젝트</a><a href="#roles" class="hide-m">직무</a>
+  <a class="go" href="resume.pdf" download>이력서 PDF ↓</a>
+</nav>
+
+<main class="wrap">
+  <!-- 1. HERO -->
+  <header class="hero">
+    <div>
+      <span class="eyebrow">재료공학 · AI · Physical AI</span>
+      <h1>소재를 알고,<br><em>움직이는 AI</em>를<br>만드는 [이름]입니다.</h1>
+      <p class="lede">결정 구조를 공부하며 쌓은 실험 감각으로 AI 모델을 만들고, 그 모델을 실제로 움직이는 로봇에 올려 봤습니다. 소재와 AI 사이에서 일할 신입 엔지니어입니다.</p>
+      <div class="btns">
+        <a class="cta" href="resume.pdf" download>이력서 다운로드 (PDF) <i aria-hidden="true">↓</i></a>
+        <a class="ghost" href="mailto:[이메일]">이메일로 연락하기</a>
+      </div>
+      <div class="facts">
+        <span class="chip">[학교] 재료공학과</span><span class="chip">[졸업 예정 연월]</span><span class="chip">AI 프로젝트 [n]건</span><span class="chip">피지컬 AI 프로젝트 [n]건</span>
+      </div>
+    </div>
+    <div class="bezel"><div class="core" style="display:grid;place-items:center;min-height:400px">
+      <svg viewBox="0 0 300 300" width="88%" role="img" aria-label="로봇 그리퍼가 결정 구조 큐브를 잡고 있는 일러스트">
+        <rect x="120" y="10" width="60" height="70" rx="14" fill="#E4E4E7"/>
+        <rect x="70" y="80" width="160" height="30" rx="12" fill="#D4D4D8"/>
+        <path d="M88 110 V200 Q88 220 110 228" fill="none" stroke="#52525B" stroke-width="14" stroke-linecap="round"/>
+        <path d="M212 110 V200 Q212 220 190 228" fill="none" stroke="#52525B" stroke-width="14" stroke-linecap="round"/>
+        <g transform="translate(118 196)">
+          <path d="M0 0 H64 V64 H0 Z M14 -14 H78 V50 H64 M78 -14 L64 0 M14 -14 L0 0" fill="none" stroke="#A1A1AA"/>
+          <g fill="#C2410C"><circle r="6"/><circle cx="64" r="6"/><circle cy="64" r="6"/><circle cx="64" cy="64" r="6"/></g>
+          <g fill="#FDBA74"><circle cx="32" cy="32" r="6"/><circle cx="46" cy="-7" r="5"/><circle cx="71" cy="25" r="5"/></g>
+        </g>
+        <circle cx="110" cy="228" r="5" fill="#C2410C"/><circle cx="190" cy="228" r="5" fill="#C2410C"/>
+      </svg>
+      <p class="mono">FIG. 1 — 그리퍼와 FCC 단위 격자 · 직접 제작</p>
+    </div></div>
+  </header>
+
+  <!-- 2. ABOUT -->
+  <section id="about" class="reveal">
+    <div class="about">
+      <span class="mono">01 — ABOUT</span>
+      <p>[학교] 재료공학과 <span class="ph">[학년 / 졸업 예정]</span>입니다. 실험 데이터를 정리하다가 <span class="ph">[AI를 시작한 계기 한 문장]</span>를 계기로 AI를 공부하기 시작했고, 이후 센서와 로봇이 실제로 움직이는 피지컬 AI 프로젝트까지 완료했습니다. 관심 분야는 <span class="ph">[예) 이차전지 소재 / 로봇 소재]</span>입니다.</p>
+    </div>
+  </section>
+
+  <!-- 3. SKILLS -->
+  <section id="skills" class="reveal">
+    <div class="head"><span class="mono">02 — SKILLS</span><div><h2>직접 다뤄 본 것만 적었습니다.</h2></div></div>
+    <div class="bento">
+      <div class="bezel s1"><div class="core">
+        <h3>분석 장비</h3>
+        <div class="tags"><span class="chip">XRD</span><span class="chip">SEM / EDS</span><span class="chip">UTM</span><span class="chip">DSC</span></div>
+        <svg viewBox="0 0 400 140" width="100%" style="margin-top:32px" role="img" aria-label="XRD 회절 패턴 예시">
+          <path d="M0 130 L60 128 L70 40 L80 128 L150 126 L160 70 L170 126 L240 127 L248 95 L256 127 L320 128 L326 110 L332 128 L400 129" fill="none" stroke="#C2410C" stroke-width="1.8"/>
+          <line x1="0" y1="133" x2="400" y2="133" stroke="#E4E4E7"/>
+        </svg>
+        <p class="mono" style="margin-top:8px">XRD 패턴 예시 — 실제 측정 데이터로 교체</p>
+      </div></div>
+      <div class="bezel s2"><div class="core"><h3>AI</h3><div class="tags"><span class="chip">Python</span><span class="chip">PyTorch</span><span class="chip">[pandas · scikit-learn]</span></div></div></div>
+      <div class="bezel s3"><div class="core"><h3>하드웨어</h3><div class="tags"><span class="chip">ROS</span><span class="chip">Arduino</span><span class="chip">[센서 종류]</span></div></div></div>
+      <div class="bezel s4"><div class="core"><h3>공정</h3><div class="tags"><span class="chip">열처리</span><span class="chip">소결</span><span class="chip">박막 증착</span></div></div></div>
+      <div class="bezel s5"><div class="core"><h3>자격 · 어학</h3><p class="mono">[자격증] · [어학 점수]</p></div></div>
+    </div>
+  </section>
+
+  <!-- 4~6. PROJECTS -->
+  <section id="projects">
+    <div class="head reveal"><span class="mono">03 — PROJECTS</span><div><h2>소재에서 시작해 AI로 끝낸 두 프로젝트</h2><p>두 프로젝트 모두 완료했고, 맡은 범위와 결과를 그대로 적었습니다.</p></div></div>
+
+    <article class="feat bezel reveal">
+      <div class="core viz">
+        <svg viewBox="0 0 260 240" width="78%" role="img" aria-label="촉각 센서가 달린 그리퍼와 센서 출력 곡선 일러스트">
+          <rect x="105" y="10" width="50" height="56" rx="12" fill="#E4E4E7"/>
+          <rect x="70" y="66" width="120" height="22" rx="8" fill="#D4D4D8"/>
+          <path d="M82 88 V160 L106 182" fill="none" stroke="#52525B" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M178 88 V160 L154 182" fill="none" stroke="#52525B" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="130" cy="188" r="22" fill="#FAFAF9" stroke="#A1A1AA"/>
+          <rect x="100" y="176" width="8" height="18" rx="3" fill="#C2410C"/><rect x="152" y="176" width="8" height="18" rx="3" fill="#C2410C"/>
+          <path d="M14 232 C60 230 80 214 110 214 S170 222 246 206" fill="none" stroke="#FDBA74" stroke-width="2" stroke-dasharray="3 5"/>
+        </svg>
+      </div>
+      <div class="core">
+        <span class="done">● 완료</span> <span class="chip">피지컬 AI</span> <span class="chip">[팀 n명 · 기간]</span>
+        <h3>[한 줄 요약: 예) 촉각 센서로 재질을 인식해 잡는 힘을 조절하는 그리퍼]</h3>
+        <p class="why">피지컬 AI의 성능은 센서와 액추에이터 소재가 좌우합니다. 그래서 이 팀에서 소재를 맡았습니다.</p>
+        <dl>
+          <dt>내 역할</dt><dd>[소재 선정 · 물성 시험 · 센서 데이터 수집]</dd>
+          <dt>방법</dt><dd>[장비 · 모델 · 하드웨어]</dd>
+          <dt>결과</dt><dd>[수치 결과 · 시연 영상 링크]</dd>
+          <dt>배운 점</dt><dd>[한 줄]</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="feat flip bezel reveal">
+      <div class="core viz">
+        <svg viewBox="0 0 260 220" width="78%" role="img" aria-label="현미경 이미지 격자와 예측 결과 막대 일러스트">
+          <g fill="#E4E4E7"><rect x="20" y="30" width="56" height="56" rx="8"/><rect x="82" y="30" width="56" height="56" rx="8"/><rect x="20" y="92" width="56" height="56" rx="8"/><rect x="82" y="92" width="56" height="56" rx="8"/></g>
+          <g fill="#A1A1AA"><circle cx="40" cy="52" r="10"/><circle cx="58" cy="66" r="6"/><circle cx="104" cy="56" r="14"/><circle cx="44" cy="118" r="7"/><circle cx="60" cy="128" r="9"/><circle cx="110" cy="120" r="11"/></g>
+          <path d="M150 89 H172" stroke="#71717A" stroke-width="2"/><path d="M166 83 L172 89 L166 95" fill="none" stroke="#71717A" stroke-width="2"/>
+          <g><rect x="184" y="40" width="56" height="12" rx="6" fill="#C2410C"/><rect x="184" y="62" width="34" height="12" rx="6" fill="#FDBA74"/><rect x="184" y="84" width="20" height="12" rx="6" fill="#E4E4E7"/></g>
+          <text x="20" y="190" font-family="JetBrains Mono" font-size="10" fill="#71717A">MICROGRAPH → MODEL → CLASS</text>
+        </svg>
+      </div>
+      <div class="core">
+        <span class="done">● 완료</span> <span class="chip">AI</span> <span class="chip">[개인 / 팀 · 기간]</span>
+        <h3>[한 줄 요약: 예) SEM 이미지로 결정립 크기를 분류하는 모델]</h3>
+        <p class="why">실험에서 나온 소재 데이터를 사람이 일일이 보지 않아도 되도록 만든 프로젝트입니다.</p>
+        <dl>
+          <dt>내 역할</dt><dd>[데이터 수집 · 전처리 · 모델 학습 · 평가]</dd>
+          <dt>방법</dt><dd>[데이터 수 · 모델 구조 · 도구]</dd>
+          <dt>결과</dt><dd>[정확도 등 실제 수치]</dd>
+          <dt>배운 점</dt><dd>[한 줄]</dd>
+        </dl>
+      </div>
+    </article>
+
+    <div class="plist">
+      <div class="bezel reveal"><div class="core"><div class="thumb">
+        <svg viewBox="0 0 160 90" width="70%" aria-hidden="true"><path d="M10 80 L50 30 Q90 18 120 28 L140 60" fill="none" stroke="#C2410C" stroke-width="1.8"/><line x1="10" y1="82" x2="150" y2="82" stroke="#D4D4D8"/></svg>
+      </div><span class="mono">졸업 설계</span><h4>[프로젝트명]</h4><p>[목표 → 결과 한 줄]</p></div></div>
+      <div class="bezel reveal"><div class="core"><div class="thumb">
+        <svg viewBox="0 0 160 90" width="70%" aria-hidden="true"><g fill="#A1A1AA"><circle cx="40" cy="45" r="14"/><circle cx="75" cy="40" r="18"/><circle cx="112" cy="50" r="12"/><circle cx="60" cy="68" r="9"/></g></svg>
+      </div><span class="mono">학부연구생</span><h4>[연구 주제]</h4><p>[목표 → 결과 한 줄]</p></div></div>
+      <div class="bezel reveal"><div class="core"><div class="thumb">
+        <svg viewBox="0 0 160 90" width="70%" aria-hidden="true"><g stroke="#A1A1AA" fill="none"><rect x="30" y="20" width="100" height="50" rx="4"/><path d="M30 45 H130 M80 20 V70"/></g></svg>
+      </div><span class="mono">실험 과목</span><h4>[실험명]</h4><p>[목표 → 결과 한 줄]</p></div></div>
+    </div>
+  </section>
+
+  <!-- 7. ROLES -->
+  <section id="roles" class="reveal">
+    <div class="head"><span class="mono">04 — FIT</span><div><h2>직무별로 이렇게 기여합니다</h2><p>여러 회사에 같은 페이지를 드립니다. 보시는 직무에 해당하는 칸만 확인하셔도 됩니다.</p></div></div>
+    <div class="roles">
+      <div class="bezel"><div class="core"><span class="mono">공정기술</span><h3>공정을 데이터로 봅니다</h3><ul><li>[열처리 · 소결 실험 경험]</li><li>[공정 데이터 분석 경험]</li></ul></div></div>
+      <div class="bezel"><div class="core"><span class="mono">품질</span><h3>원인을 측정으로 찾습니다</h3><ul><li>[XRD · SEM 분석 경험]</li><li>[불량 · 오차 분석 경험]</li></ul></div></div>
+      <div class="bezel"><div class="core"><span class="mono">소재 R&amp;D</span><h3>실험을 설계합니다</h3><ul><li>[학부연구생 경험]</li><li>[AI 프로젝트 — 물성 · 이미지 분석]</li></ul></div></div>
+      <div class="bezel"><div class="core"><span class="mono">AI · 로봇</span><h3>소재를 아는 개발자</h3><ul><li>[피지컬 AI 프로젝트]</li><li>[Python · PyTorch · ROS]</li></ul></div></div>
+    </div>
+  </section>
+
+  <!-- 8. HISTORY -->
+  <section class="reveal">
+    <div class="head"><span class="mono">05 — HISTORY</span><div><h2>활동 · 경력</h2></div></div>
+    <ol class="tl">
+      <li><span class="mono">[기간]</span><span>피지컬 AI 프로젝트 · [팀명 / 역할]</span></li>
+      <li><span class="mono">[기간]</span><span>AI 프로젝트 · [주제 / 역할]</span></li>
+      <li><span class="mono">[기간]</span><span>[학부연구생 · 인턴 · 공모전 · 학회 발표]</span></li>
+      <li><span class="mono">[기간]</span><span>[동아리 · 대외활동]</span></li>
+    </ol>
+  </section>
+
+  <!-- 9. CLOSING -->
+  <div class="dark reveal">
+    <div>
+      <span class="eyebrow" style="background:rgba(255,255,255,.08);color:#D6D3D1;box-shadow:none">Resume</span>
+      <h2>더 자세한 내용은 이력서에 정리해 두었습니다.</h2>
+      <p class="mono" style="margin-top:18px;color:#A8A29E">또는 <a href="mailto:[이메일]" style="text-decoration:underline">[이메일]</a></p>
+    </div>
+    <a class="cta" href="resume.pdf" download>이력서 다운로드 (PDF) <i aria-hidden="true">↓</i></a>
+  </div>
+</main>
+
+<footer class="wrap mono">
+  <span>© 2026 [이름] · 강의 실습용 포트폴리오</span><span>일러스트 직접 제작 SVG · 사진 출처 [표기]</span>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

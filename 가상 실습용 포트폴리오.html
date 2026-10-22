@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[이름] 포트폴리오</title>
+<meta name="description" content="소재와 AI를 잇는 재료공학 신입 엔지니어 [이름]의 포트폴리오">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* open-design · design-systems/ibm (Carbon) 토큰 */
+:root{
+  --bg:#ffffff; --layer:#f4f4f4; --layer2:#e0e0e0; --fg:#161616; --fg2:#525252; --fg3:#6f6f6f;
+  --border:#c6c6c6; --subtle:#e0e0e0; --blue:#0f62fe; --blue-h:#0353e9; --blue-a:#002d9c; --blue-10:#edf5ff;
+  --sans:"IBM Plex Sans KR","Helvetica Neue",Arial,sans-serif; --mono:"IBM Plex Mono",Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.5}
+a{color:inherit}
+.wrap{max-width:1312px;margin:0 auto;padding:0 32px}
+@media(max-width:672px){.wrap{padding:0 16px}}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.32px;color:var(--fg3)}
+.tag{display:inline-block;font-family:var(--mono);font-size:12px;padding:2px 10px;border-radius:24px;background:var(--layer2);color:var(--fg)}
+.tag.blue{background:var(--blue-10);color:var(--blue-a)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:-2px;box-shadow:inset 0 0 0 3px #fff}
+
+/* header */
+.top{position:sticky;top:0;z-index:20;background:var(--fg);color:#f4f4f4;height:48px}
+.top .wrap{display:flex;align-items:center;height:48px;gap:0}
+.top .id{font-weight:600;font-size:14px;letter-spacing:.16px;margin-right:auto}
+.top .id span{font-weight:400;color:#c6c6c6}
+.top a.lnk{font-size:14px;color:#c6c6c6;text-decoration:none;padding:0 16px;height:48px;display:flex;align-items:center}
+.top a.lnk:hover{background:#262626;color:#f4f4f4}
+.top a.dl{background:var(--blue);color:#fff;text-decoration:none;font-size:14px;padding:0 16px;height:48px;display:flex;align-items:center}
+.top a.dl:hover{background:var(--blue-h)}
+@media(max-width:672px){.top a.lnk{display:none}.top .id span{display:none}}
+
+/* buttons — Carbon: 직각, 오른쪽 아이콘 자리 */
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:32px;min-width:240px;height:48px;padding:0 16px;font-size:14px;letter-spacing:.16px;text-decoration:none;border:1px solid transparent}
+.btn.primary{background:var(--blue);color:#fff}
+.btn.primary:hover{background:var(--blue-h)}.btn.primary:active{background:var(--blue-a)}
+.btn.tertiary{border-color:var(--blue);color:var(--blue)}
+.btn.tertiary:hover{background:var(--blue-h);color:#fff}
+.btns{display:flex;flex-wrap:wrap;gap:1px;margin-top:40px}
+
+/* hero */
+.hero{display:grid;grid-template-columns:7fr 5fr;gap:32px;padding:80px 0 64px;align-items:end}
+.hero h1{font-weight:300;font-size:clamp(40px,5.2vw,64px);line-height:1.17;letter-spacing:-.5px;margin-top:16px}
+.hero h1 b{font-weight:600;color:var(--blue)}
+.hero .lede{font-size:20px;line-height:1.4;color:var(--fg2);margin-top:24px;max-width:36ch}
+.facts{list-style:none;margin-top:32px;border-top:1px solid var(--subtle)}
+.facts li{display:grid;grid-template-columns:120px 1fr;padding:12px 0;border-bottom:1px solid var(--subtle);font-size:14px;letter-spacing:.16px}
+@media(max-width:960px){.hero{grid-template-columns:1fr;padding:48px 0}}
+
+/* 3D 결정 구조 */
+.xtal{background:var(--layer);padding:16px}
+.stage3d{position:relative;aspect-ratio:1/1;cursor:grab;touch-action:pan-y;background:radial-gradient(circle at 50% 45%,#fff 0%,#f4f4f4 70%);background-color:#f4f4f4}
+.stage3d:active{cursor:grabbing}
+.stage3d::before{content:"";position:absolute;inset:0;background-image:radial-gradient(#c6c6c6 .8px,transparent .8px);background-size:16px 16px;opacity:.6;pointer-events:none}
+.stage3d canvas{position:relative;display:block;width:100%!important;height:100%!important}
+.stage3d .hint{position:absolute;right:10px;bottom:8px;pointer-events:none}
+.switch{display:flex;margin-bottom:12px}
+.switch button{flex:1;height:40px;font:inherit;font-size:14px;letter-spacing:.16px;border:1px solid var(--fg);background:transparent;color:var(--fg);cursor:pointer}
+.switch button+button{border-left:0}
+.switch button[aria-pressed="true"]{background:var(--fg);color:#fff}
+.xtal .cap{display:block;margin-top:4px}
+
+/* SEM 측정 */
+.compare{background:var(--layer);padding:16px}
+.spec .fig .compare{padding:0;background:none}
+.spec .readout .v{font-size:16px;white-space:nowrap}
+.spec .flow{grid-column:1/-1;background:var(--layer)!important;padding:24px 32px}
+.spec .flow .mono{display:block;margin-top:8px}
+
+/* 입체 카드: 마우스 따라 기울기 + 빛 반사 */
+.tilt{position:relative;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,0,.38,.9),box-shadow .4s}
+.tilt.active{transition:transform .08s linear,box-shadow .4s;box-shadow:0 24px 48px -16px rgba(22,22,22,.28)}
+.tilt::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(480px circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.45),transparent 55%);opacity:0;transition:opacity .4s;z-index:2}
+.tilt.active::after{opacity:1}
+@media (prefers-reduced-motion:reduce){.tilt{transition:none}}
+.compare .stage{position:relative;aspect-ratio:1/1;overflow:hidden;background:#222}
+.compare canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:auto}
+.compare .lbl{position:absolute;top:8px;font-family:var(--mono);font-size:11px;background:rgba(22,22,22,.8);color:#f4f4f4;padding:2px 8px}
+.compare .cap{display:flex;justify-content:space-between;margin-top:4px}
+.readout{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--subtle);margin-top:12px}
+.readout>div{background:var(--bg);padding:10px 12px}
+.readout .k{display:block;font-family:var(--mono);font-size:11px;color:var(--fg3)}
+.readout .v{display:block;font-size:20px;font-weight:300;font-variant-numeric:tabular-nums;margin-top:2px}
+.readout.on .v{color:var(--blue)}
+/* 실제 SEM 촬영 정보 띠 모방 */
+.sembar{position:absolute;left:0;right:0;bottom:0;display:flex;gap:16px;align-items:center;padding:6px 10px;background:rgba(0,0,0,.78);color:#e0e0e0;font-family:var(--mono);font-size:10px;letter-spacing:.3px;pointer-events:none}
+.sembar .sc{margin-left:auto;display:flex;align-items:center;gap:6px}
+.sembar .sc i{display:block;width:48px;height:3px;background:#fff}
+@media(max-width:480px){.sembar .opt{display:none}}
+.fig svg text{font-family:var(--mono)}
+
+/* stats */
+.stats{background:var(--layer);}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--subtle)}
+.stats .s{background:var(--layer);padding:32px 16px 24px}
+.stats .n{font-weight:300;font-size:48px;line-height:1.1;font-variant-numeric:tabular-nums}
+.stats .n sup{font-family:var(--mono);font-size:12px;color:var(--fg3);vertical-align:top;margin-left:4px}
+.stats p{font-size:14px;color:var(--fg2);margin-top:8px}
+@media(max-width:672px){.stats .wrap{grid-template-columns:1fr 1fr}.stats .n{font-size:36px}}
+
+section{padding:96px 0}
+section.alt{background:var(--layer)}
+.sh{display:grid;grid-template-columns:4fr 8fr;gap:32px;margin-bottom:48px}
+.sh h2{font-weight:300;font-size:clamp(30px,3.4vw,42px);line-height:1.19}
+.sh p{color:var(--fg2);max-width:56ch;align-self:end}
+@media(max-width:960px){.sh{grid-template-columns:1fr;gap:16px}}
+
+/* 프로젝트 사양서 */
+.spec{display:grid;grid-template-columns:5fr 7fr;gap:1px;background:var(--subtle);border:1px solid var(--subtle)}
+.spec+.spec{margin-top:32px}
+.spec>div{background:var(--bg);padding:32px}
+section.alt .spec>div{background:var(--bg)}
+.spec .fig{background:var(--layer)!important;display:flex;flex-direction:column;justify-content:space-between;gap:16px}
+.spec h3{font-weight:400;font-size:28px;line-height:1.3;margin:16px 0 8px}
+.spec .sum{color:var(--fg2)}
+.spec table{width:100%;border-collapse:collapse;margin-top:24px;font-size:14px;letter-spacing:.16px}
+.spec th{width:120px;text-align:left;font-family:var(--mono);font-weight:400;font-size:12px;color:var(--fg3);vertical-align:top;padding:12px 16px 12px 0;border-top:1px solid var(--subtle)}
+.spec td{padding:12px 0;border-top:1px solid var(--subtle)}
+.spec td b{font-weight:600}
+.assume{font-family:var(--mono);font-size:10px;color:var(--fg3);border:1px solid var(--border);padding:0 4px;margin-left:4px;vertical-align:2px}
+.links{display:flex;gap:24px;margin-top:24px;font-size:14px}
+.links a{color:var(--blue);text-decoration:none}.links a:hover{text-decoration:underline}
+@media(max-width:960px){.spec{grid-template-columns:1fr}}
+
+/* 직무 */
+.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.role{background:var(--bg);padding:24px 16px 32px;border-top:4px solid var(--fg);min-height:280px;display:flex;flex-direction:column}
+.role h3{font-weight:600;font-size:20px;line-height:1.4;margin:8px 0 16px}
+.role ul{list-style:none;font-size:14px;letter-spacing:.16px;color:var(--fg2)}
+.role li{padding:8px 0;border-top:1px solid var(--subtle)}
+.role .from{margin-top:auto;padding-top:24px}
+@media(max-width:960px){.roles{grid-template-columns:1fr}.role{min-height:0}}
+
+/* 역량 표 */
+.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--subtle);border:1px solid var(--subtle)}
+.skills>div{background:var(--bg);padding:24px 16px}
+.skills h3{font-family:var(--mono);font-weight:400;font-size:12px;color:var(--fg3);letter-spacing:.32px;margin-bottom:16px}
+.skills ul{list-style:none;font-size:15px;line-height:1.9}
+@media(max-width:960px){.skills{grid-template-columns:1fr 1fr}}
+
+/* 타임라인 */
+.tl{list-style:none;border-top:1px solid var(--fg)}
+.tl li{display:grid;grid-template-columns:4fr 8fr;gap:32px;padding:20px 0;border-bottom:1px solid var(--subtle)}
+.tl b{font-weight:600}
+.tl span.d{font-family:var(--mono);font-size:14px;color:var(--fg2)}
+@media(max-width:672px){.tl li{grid-template-columns:1fr;gap:4px}}
+
+/* closing */
+.end{background:var(--fg);color:#f4f4f4;padding:96px 0 80px}
+.end h2{font-weight:300;font-size:clamp(34px,4.6vw,60px);line-height:1.17;max-width:18ch}
+.end .btn.tertiary{border-color:#f4f4f4;color:#f4f4f4}
+.end .btn.tertiary:hover{background:#f4f4f4;color:var(--fg)}
+footer{background:var(--fg);color:#8d8d8d;border-top:1px solid #393939}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-top:24px;padding-bottom:32px}
+footer .mono{color:#8d8d8d}
+
+.js .rv{opacity:0;transition:opacity .4s cubic-bezier(.2,0,.38,.9)}
+.js .rv.in{opacity:1}
+@media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transition:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <span class="id">[이름] <span>· 재료공학 × AI</span></span>
+    <a class="lnk" href="#projects">프로젝트</a><a class="lnk" href="#roles">직무</a><a class="lnk" href="#skills">역량</a>
+    <a class="dl" href="resume.pdf" download>이력서 다운로드 (PDF)</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div>
+      <span class="tag blue">신입 · 공정기술 / 제조 AI / 소재 R&amp;D</span>
+      <h1>소재와 AI를 잇는<br><b>재료공학 엔지니어</b>,<br>[이름]</h1>
+      <p class="lede">미세조직을 측정하던 손으로 AI 모델 개발. 그 모델을 로봇까지 연결.</p>
+      <ul class="facts">
+        <li><span class="mono">학력</span><span>[학교] 신소재공학과 학사 · 2026.02 졸업</span></li>
+        <li><span class="mono">대표 프로젝트</span><span>소프트 로봇 그리퍼 · SEM 결정립 분할 AI</span></li>
+        <li><span class="mono">연구</span><span>[금속재료 연구실] 학부연구생 · 학회 포스터 발표</span></li>
+      </ul>
+      <div class="btns">
+        <a class="btn primary" href="resume.pdf" download>이력서 다운로드 (PDF) <span aria-hidden="true">↓</span></a>
+        <a class="btn tertiary" href="mailto:[이메일]">이메일 문의 <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <figure class="xtal" aria-labelledby="xtal-cap">
+      <div class="switch" role="group" aria-label="결정 구조 선택">
+        <button type="button" data-s="bcc" aria-pressed="true">BCC · α-Fe</button><button type="button" data-s="fcc" aria-pressed="false">FCC · γ-Fe</button>
+      </div>
+      <div class="stage3d" id="xtal" role="img" aria-label="드래그로 회전할 수 있는 철의 3D 결정 구조"><span class="hint mono">드래그해 회전</span></div>
+      <div class="readout on" aria-live="polite">
+        <div><span class="k">배위수</span><span class="v" id="x-cn">8</span></div>
+        <div><span class="k">원자 충진율</span><span class="v" id="x-apf">0.68</span></div>
+        <div><span class="k">격자상수 a</span><span class="v" id="x-a">2.87 Å</span></div>
+      </div>
+      <figcaption class="cap"><span class="mono" id="xtal-cap">FIG. 1 — 철의 두 결정 구조 · 2×2×2 단위정, 원자는 축소 표시</span></figcaption>
+    </figure>
+  </div>
+
+  <div class="stats rv">
+    <div class="wrap">
+      <div class="s"><div class="n">85%<sup>가정</sup></div><p>소프트 그리퍼 파지 성공률 · 취약 물체 20종</p></div>
+      <div class="s"><div class="n">0.82<sup>가정</sup></div><p>SEM 결정립 분할 mIoU</p></div>
+      <div class="s"><div class="n">600<sup>가정</sup></div><p>직접 촬영 · 라벨링한 SEM 이미지</p></div>
+      <div class="s"><div class="n">1<sup>가정</sup></div><p>학회 포스터 발표</p></div>
+    </div>
+  </div>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="sh rv"><h2>대표 프로젝트</h2><p>소재 시험에서 시작해 AI 구현까지. 맡은 범위와 결과만 기재.</p></div>
+
+      <article class="spec rv tilt" data-tilt="1.5">
+        <div class="fig">
+          <svg viewBox="0 0 480 420" width="100%" role="img" aria-label="소프트 그리퍼 손가락 단면도, 굽힘 상태, 소재별 공압-굽힘각 그래프">
+            <defs>
+              <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="#c6c6c6"/></pattern>
+              <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#8d8d8d" stroke-width="1.2"/></pattern>
+              <marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 z" fill="#161616"/></marker>
+            </defs>
+            <rect width="480" height="420" fill="url(#dots)"/>
+
+            <!-- A. 단면도 -->
+            <text x="16" y="22" font-size="10" fill="#161616">A — SECTION A-A · 손가락 단면</text>
+            <rect x="24" y="64" width="30" height="88" fill="url(#hatch)" stroke="#161616"/>
+            <rect x="8" y="114" width="16" height="8" fill="#fff" stroke="#161616"/>
+            <rect x="54" y="72" width="246" height="66" rx="6" fill="#e8e8e8" stroke="#161616" stroke-width="1.2"/>
+            <g fill="#fff" stroke="#161616">
+              <rect x="66" y="80" width="20" height="40" rx="2"/><rect x="94" y="80" width="20" height="40" rx="2"/><rect x="122" y="80" width="20" height="40" rx="2"/><rect x="150" y="80" width="20" height="40" rx="2"/>
+              <rect x="178" y="80" width="20" height="40" rx="2"/><rect x="206" y="80" width="20" height="40" rx="2"/><rect x="234" y="80" width="20" height="40" rx="2"/><rect x="262" y="80" width="20" height="40" rx="2"/>
+            </g>
+            <rect x="54" y="116" width="230" height="4" fill="#fff"/>
+            <path d="M24 118 H282" stroke="#0f62fe" stroke-width="1" stroke-dasharray="3 3"/>
+            <rect x="54" y="138" width="246" height="7" fill="#0f62fe"/>
+            <!-- 지시선 -->
+            <g stroke="#161616" fill="none"><path d="M140 80 L150 46 H178"/><path d="M220 141 L236 170 H262"/><path d="M90 118 L104 170 H128"/></g>
+            <g font-size="10" fill="#161616">
+              <circle cx="186" cy="46" r="7" fill="#161616"/><text x="186" y="49.5" text-anchor="middle" fill="#fff" font-size="9">1</text><text x="198" y="49.5">Ecoflex 00-30 챔버층</text>
+              <circle cx="270" cy="170" r="7" fill="#0f62fe"/><text x="270" y="173.5" text-anchor="middle" fill="#fff" font-size="9">2</text><text x="282" y="173.5">변형 제한층</text>
+              <circle cx="136" cy="170" r="7" fill="#161616"/><text x="136" y="173.5" text-anchor="middle" fill="#fff" font-size="9">3</text><text x="148" y="173.5">공압 채널</text>
+            </g>
+            <g stroke="#525252"><path d="M54 192 H300" marker-start="url(#ar)" marker-end="url(#ar)"/><path d="M54 184 V198 M300 184 V198"/></g>
+            <text x="177" y="210" text-anchor="middle" font-size="10" fill="#525252">L = 120 mm (예시)</text>
+
+            <!-- B. 굽힘 상태 -->
+            <text x="330" y="22" font-size="10" fill="#161616">B — 가압 시 굽힘</text>
+            <rect x="370" y="36" width="56" height="16" fill="url(#hatch)" stroke="#161616"/>
+            <g fill="none" stroke="#a8a8a8" stroke-width="1" stroke-dasharray="3 3"><path d="M376 52 V170"/><path d="M420 52 V170"/></g>
+            <g fill="none" stroke="#161616" stroke-width="14" stroke-linecap="round"><path d="M380 56 C376 110 386 148 400 166"/></g>
+            <g fill="none" stroke="#e8e8e8" stroke-width="11" stroke-linecap="round"><path d="M380 56 C376 110 386 148 400 166"/></g>
+            <g fill="none" stroke="#161616" stroke-width="14" stroke-linecap="round"><path d="M416 56 C420 110 410 148 404 166"/></g>
+            <g fill="none" stroke="#e8e8e8" stroke-width="11" stroke-linecap="round"><path d="M416 56 C420 110 410 148 404 166"/></g>
+            <g stroke="#0f62fe" stroke-width="2.5" fill="none"><path d="M386 58 C382 110 392 146 404 160"/><path d="M410 58 C414 110 404 146 400 160"/></g>
+            <rect x="376" y="170" width="44" height="5" fill="#0f62fe"/><rect x="376" y="175" width="44" height="2" fill="#002d9c"/>
+            <text x="426" y="178" font-size="9" fill="#525252">wafer</text>
+            <path d="M452 120 V70" stroke="#161616" marker-end="url(#ar)"/><text x="446" y="134" font-size="10" fill="#161616">P↑</text>
+
+            <!-- C. 그래프 -->
+            <text x="16" y="241" font-size="10" fill="#161616">C — 공압–굽힘각 응답</text>
+            <g stroke="#e0e0e0"><path d="M60 323.3 H450 M60 276.7 H450 M190 270 V390 M320 270 V390"/></g>
+            <g stroke="#161616"><path d="M60 390 H450 M60 390 V264"/></g>
+            <g font-size="9" fill="#525252" text-anchor="middle"><text x="60" y="404">0</text><text x="190" y="404">20</text><text x="320" y="404">40</text><text x="450" y="404">60</text><text x="430" y="384" text-anchor="end">P [kPa]</text></g>
+            <g font-size="9" fill="#525252" text-anchor="end"><text x="54" y="393">0</text><text x="54" y="347">60</text><text x="54" y="300">120</text><text x="54" y="270">θ [°]</text></g>
+            <!-- y = 390 - θ×0.778 -->
+            <path d="M60 390 L125 373 L190 349.6 L255 323.9 L320 302.9 L385 287.3 L450 276.4" fill="none" stroke="#0f62fe" stroke-width="2"/>
+            <path d="M60 390 L125 363.6 L190 335.6 L255 310.7 L320 292 L385 281.1 L450 276.4" fill="none" stroke="#0f62fe" stroke-width="1.2" stroke-dasharray="4 3"/>
+            <path d="M60 390 L125 382.2 L190 371.3 L255 358.9 L320 344.9 L385 330.9 L450 318.4" fill="none" stroke="#161616" stroke-width="2"/>
+            <g fill="#0f62fe"><circle cx="125" cy="373" r="3"/><circle cx="190" cy="349.6" r="3"/><circle cx="255" cy="323.9" r="3"/><circle cx="320" cy="302.9" r="3"/><circle cx="385" cy="287.3" r="3"/></g>
+            <g fill="#fff" stroke="#161616" stroke-width="1.5"><rect x="122" y="379.2" width="6" height="6"/><rect x="187" y="368.3" width="6" height="6"/><rect x="252" y="355.9" width="6" height="6"/><rect x="317" y="341.9" width="6" height="6"/><rect x="382" y="327.9" width="6" height="6"/></g>
+            <path d="M150 304 L190 341" fill="none" stroke="#525252"/><circle cx="190" cy="342" r="2" fill="#525252"/><text x="86" y="300" font-size="9" fill="#525252">히스테리시스 구간</text>
+            <g font-size="9" fill="#161616">
+              <path d="M150 238 h16" stroke="#0f62fe" stroke-width="2"/><text x="170" y="241">Ecoflex 가압</text>
+              <path d="M240 238 h16" stroke="#0f62fe" stroke-width="1.2" stroke-dasharray="4 3"/><text x="260" y="241">Ecoflex 감압</text>
+              <path d="M330 238 h16" stroke="#161616" stroke-width="2"/><text x="350" y="241">Dragon Skin 10</text>
+            </g>
+          </svg>
+          <span class="mono">FIG. 2 — 손가락 구조와 소재별 응답 (일러스트 · 가정 데이터, 실측 그래프로 교체)</span>
+        </div>
+        <div>
+          <span class="tag">피지컬 AI</span> <span class="tag">2025.03–12 · 4인 팀</span>
+          <h3>취약 부품용 소프트 로봇 그리퍼</h3>
+          <p class="sum">실리콘 공압 액추에이터 기반 그리퍼 + 비전 AI 파지력 제어. 웨이퍼·유리 기판 핸들링 응용 목표.</p>
+          <table>
+            <tr><th>왜 재료공학</th><td>소프트 로봇의 동작 범위·내구성 = 엘라스토머 물성</td></tr>
+            <tr><th>내 역할</th><td>엘라스토머 2종 비교·선정 (Ecoflex 00-30 / Dragon Skin 10) · UTM 인장 시험 · 몰드 설계·주형 · 공압–굽힘각 학습 데이터 구축</td></tr>
+            <tr><th>결과</th><td>취약 물체 20종 파지 성공률 <b>85%</b><span class="assume">가정</span> · 반복 굽힘 내구성 비교로 최종 소재 결정</td></tr>
+            <tr><th>배운 점</th><td>모델 성능 한계의 원인이 데이터가 아닌 소재 히스테리시스에 있음을 확인</td></tr>
+          </table>
+          <div class="links"><a href="#">시연 영상 →</a><a href="#">설계 보고서 →</a></div>
+        </div>
+      </article>
+
+      <article class="spec rv tilt" data-tilt="1.5">
+        <div class="fig">
+          <figure class="compare" aria-labelledby="cmp-cap">
+            <div class="stage" id="stage">
+              <canvas id="raw" width="360" height="360"></canvas>
+              <canvas id="seg" width="360" height="360" style="cursor:crosshair"></canvas>
+              <span class="lbl" style="left:8px">SEM + AI 검출 경계</span>
+              <div class="sembar"><span>SE</span><span>HV 15.0 kV</span><span class="opt">WD 10.2 mm</span><span class="opt">×2,000</span><span class="sc"><i></i>10 μm</span></div>
+            </div>
+            <div class="readout" id="readout" aria-live="polite">
+              <div><span class="k">결정립</span><span class="v" id="r-id">—</span></div>
+              <div><span class="k">면적</span><span class="v" id="r-area">—</span></div>
+              <div><span class="k">등가 직경</span><span class="v" id="r-d">—</span></div>
+            </div>
+            <figcaption class="cap"><span class="mono" id="cmp-cap">FIG. 3 — 결정립에 마우스를 올리거나 탭해 측정값 확인 (생성 이미지)</span></figcaption>
+          </figure>
+        </div>
+        <div>
+          <span class="tag">AI</span> <span class="tag">2025.01–08 · 개인</span>
+          <h3>SEM 미세조직 결정립 분할 모델</h3>
+          <p class="sum">강재 SEM 이미지의 결정립 경계 자동 분할 → 결정립 크기 자동 측정. 절편법 수작업 대체.</p>
+          <table>
+            <tr><th>왜 재료공학</th><td>결정립 크기 = 강도·인성 결정 인자. 수작업 측정은 느리고 측정자마다 편차 발생</td></tr>
+            <tr><th>내 역할</th><td>SEM 이미지 600장<span class="assume">가정</span> 촬영·라벨링 · 전처리 · U-Net 학습·평가 · 절편법 결과와 교차 검증</td></tr>
+            <tr><th>결과</th><td>mIoU <b>0.82</b><span class="assume">가정</span> · 이미지당 측정 수 분 → 수 초 · 학회 포스터 발표</td></tr>
+            <tr><th>배운 점</th><td>라벨 품질 = 도메인 지식. 시편 연마 상태가 모델 정확도에 직결</td></tr>
+          </table>
+          <div class="links"><a href="#">GitHub 코드 →</a><a href="#">학회 포스터 →</a></div>
+        </div>
+        <div class="flow">
+          <svg viewBox="0 0 960 210" width="100%" role="img" aria-label="SEM 입력, U-Net 모델, 분할 마스크, 결정립 크기 분포로 이어지는 처리 흐름">
+            <defs>
+              <pattern id="dots3" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="#c6c6c6"/></pattern>
+              <marker id="ar3" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#161616"/></marker>
+            </defs>
+            <rect width="960" height="210" fill="url(#dots3)"/>
+            <g font-size="10" fill="#161616"><text x="16" y="28">01 INPUT</text><text x="150" y="28">02 MODEL · U-Net</text><text x="376" y="28">03 MASK</text></g>
+
+            <!-- 01 SEM 입력 -->
+            <g transform="translate(16 48)">
+              <g stroke="#393939" stroke-width="1.6" stroke-linejoin="round">
+                <polygon points="0,0 30,0 26,30 0,24" fill="#8d8d8d"/><polygon points="30,0 62,0 58,26 26,30" fill="#a8a8a8"/><polygon points="62,0 88,0 88,30 58,26" fill="#6f6f6f"/>
+                <polygon points="0,24 26,30 34,62 0,56" fill="#b8b8b8"/><polygon points="26,30 58,26 64,58 34,62" fill="#7a7a7a"/><polygon points="58,26 88,30 88,64 64,58" fill="#9a9a9a"/>
+                <polygon points="0,56 34,62 20,88 0,88" fill="#6f6f6f"/><polygon points="34,62 64,58 54,88 20,88" fill="#b0b0b0"/><polygon points="64,58 88,64 88,88 54,88" fill="#858585"/>
+              </g>
+              <rect width="88" height="88" fill="none" stroke="#161616"/>
+              <rect x="0" y="96" width="88" height="14" fill="#161616"/><text x="6" y="106" font-size="8" fill="#e0e0e0">SEM ×2,000</text>
+            </g>
+            <path d="M112 92 H140" stroke="#161616" marker-end="url(#ar3)"/>
+
+            <!-- 02 U-Net -->
+            <g transform="translate(150 44)">
+              <g fill="#c6c6c6" stroke="#161616"><rect x="0" y="0" width="12" height="96"/><rect x="24" y="22" width="12" height="70"/><rect x="48" y="44" width="12" height="46"/></g>
+              <rect x="74" y="66" width="20" height="30" fill="#161616"/>
+              <g fill="#0f62fe" stroke="#002d9c"><rect x="108" y="44" width="12" height="46"/><rect x="132" y="22" width="12" height="70"/><rect x="156" y="0" width="12" height="96"/></g>
+              <g stroke="#0f62fe" stroke-dasharray="3 3" fill="none"><path d="M12 10 H152" marker-end="url(#ar3)"/><path d="M36 32 H128" marker-end="url(#ar3)"/><path d="M60 54 H104" marker-end="url(#ar3)"/></g>
+              <g stroke="#161616" fill="none"><path d="M6 96 L28 100 L52 98 L76 104"/><path d="M92 104 L114 98 L138 100 L162 96"/></g>
+              <g font-size="8" fill="#525252"><text x="0" y="118">encoder</text><text x="70" y="118">bottleneck</text><text x="134" y="118">decoder</text><text x="0" y="132" fill="#0f62fe">- - - skip connection</text></g>
+            </g>
+            <path d="M330 92 H364" stroke="#161616" marker-end="url(#ar3)"/>
+
+            <!-- 03 마스크 -->
+            <g transform="translate(376 48)">
+              <g stroke="#fff" stroke-width="2" stroke-linejoin="round">
+                <polygon points="0,0 30,0 26,30 0,24" fill="#0f62fe"/><polygon points="30,0 62,0 58,26 26,30" fill="#1192e8"/><polygon points="62,0 88,0 88,30 58,26" fill="#009d9a"/>
+                <polygon points="0,24 26,30 34,62 0,56" fill="#6929c4"/><polygon points="26,30 58,26 64,58 34,62" fill="#005d5d"/><polygon points="58,26 88,30 88,64 64,58" fill="#002d9c"/>
+                <polygon points="0,56 34,62 20,88 0,88" fill="#1192e8"/><polygon points="34,62 64,58 54,88 20,88" fill="#9f1853"/><polygon points="64,58 88,64 88,88 54,88" fill="#0f62fe"/>
+              </g>
+              <rect width="88" height="88" fill="none" stroke="#161616"/>
+              <rect x="0" y="96" width="88" height="14" fill="#0f62fe"/><text x="6" y="106" font-size="8" fill="#fff">결정립 9개 검출</text>
+            </g>
+            <path d="M472 92 H516" stroke="#161616" marker-end="url(#ar3)"/>
+
+            <!-- 04 분포 (오른쪽 칸으로 이동) -->
+            <g transform="translate(480 -200)">
+            <text x="16" y="222" font-size="10" fill="#161616">04 OUTPUT · 결정립 크기 분포</text>
+            <g stroke="#e0e0e0"><path d="M56 320 H390 M56 280 H390"/></g>
+            <g fill="#0f62fe">
+              <rect x="60" y="352" width="28" height="8"/><rect x="92" y="330" width="28" height="30"/><rect x="124" y="298" width="28" height="62"/><rect x="156" y="280" width="28" height="80"/>
+              <rect x="188" y="290" width="28" height="70"/><rect x="220" y="310" width="28" height="50"/><rect x="252" y="328" width="28" height="32"/><rect x="284" y="342" width="28" height="18"/>
+              <rect x="316" y="351" width="28" height="9"/><rect x="348" y="356" width="28" height="4"/>
+            </g>
+            <path d="M60 358 C90 345 115 300 150 280 C175 268 195 282 225 306 C260 334 300 350 380 358" fill="none" stroke="#161616" stroke-width="1.5"/>
+            <path d="M178 250 V360" stroke="#da1e28" stroke-dasharray="4 3"/><text x="184" y="258" font-size="9" fill="#da1e28">d̄ (평균 입경)</text>
+            <g stroke="#161616"><path d="M56 360 H392 M56 360 V262"/></g>
+            <g font-size="9" fill="#525252" text-anchor="middle"><text x="60" y="374">0</text><text x="140" y="374">5</text><text x="220" y="374">10</text><text x="300" y="374">15</text><text x="380" y="374">20</text></g>
+            <text x="392" y="390" font-size="9" fill="#525252" text-anchor="end">결정립 크기 d [μm]</text>
+            <text x="50" y="266" font-size="9" fill="#525252" text-anchor="end">빈도</text>
+            <g font-size="9" fill="#161616"><text x="404" y="300">절편법 대비</text><text x="404" y="314">교차 검증</text><text x="404" y="334" fill="#0f62fe">수 분 → 수 초</text></g>
+            </g>
+          </svg>
+          <span class="mono">FIG. 4 — 처리 흐름: 이미지 → 분할 → 결정립 크기 분포</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="roles" class="alt">
+    <div class="wrap">
+      <div class="sh rv"><h2>직무별 연결</h2><p>여러 기업에 동일 페이지 제출. 해당 직무 칸만 확인해도 충분.</p></div>
+      <div class="roles rv">
+        <div class="role tilt" data-tilt="5"><span class="mono">01 · 공정기술</span><h3>공정 조건을 데이터로 관리</h3>
+          <ul><li>열처리 조건 ↔ 미세조직 상관 분석</li><li>실리콘 주형 공정 반복 개선</li><li>SEM·XRD 직접 운용</li></ul><span class="mono from">근거 — 학부연구생 · 그리퍼</span></div>
+        <div class="role tilt" data-tilt="5"><span class="mono">02 · 제조 AI · 스마트팩토리</span><h3>검사와 핸들링 자동화</h3>
+          <ul><li>SEM 분할 모델 = 비전 검사 자동화</li><li>소프트 그리퍼 = 취약 부품 핸들링</li><li>현장 데이터 라벨링·검증 경험</li></ul><span class="mono from">근거 — 두 대표 프로젝트</span></div>
+        <div class="role tilt" data-tilt="5"><span class="mono">03 · 소재 R&amp;D</span><h3>비교 시험 설계와 발표</h3>
+          <ul><li>엘라스토머 2종 물성 비교 시험 설계</li><li>미세조직 관찰 연구 1년 6개월</li><li>학회 포스터 발표</li></ul><span class="mono from">근거 — 그리퍼 · 학부연구생 · 학회</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="sh rv"><h2>역량</h2><p>직접 사용 경험이 있는 항목만 기재.</p></div>
+      <div class="skills rv">
+        <div><h3>ANALYSIS</h3><ul><li>SEM · EDS</li><li>XRD</li><li>UTM 인장 시험</li><li>광학현미경</li></ul></div>
+        <div><h3>PROCESS</h3><ul><li>열처리</li><li>시편 연마 · 에칭</li><li>실리콘 주형</li></ul></div>
+        <div><h3>AI</h3><ul><li>Python · PyTorch</li><li>OpenCV</li><li>U-Net 이미지 분할</li><li>데이터 라벨링</li></ul></div>
+        <div><h3>HARDWARE</h3><ul><li>공압 제어</li><li>Arduino</li><li>카메라 비전</li><li>3D 프린팅 몰드</li></ul></div>
+      </div>
+      <p class="mono" style="margin-top:16px">자격 · 어학 — [자격증] · [어학 점수]</p>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <div class="sh rv"><h2>경력 · 활동</h2></div>
+      <ol class="tl rv">
+        <li><span class="d">2026.02</span><span><b>[학교] 신소재공학과 졸업</b></span></li>
+        <li><span class="d">2025.11</span><span><b>대한금속·재료학회 추계 포스터 발표</b> — 딥러닝 기반 SEM 결정립 분할<span class="assume">가정</span></span></li>
+        <li><span class="d">2025.03 – 2025.12</span><span><b>소프트 로봇 그리퍼 팀 프로젝트</b> — 소재 담당 · [공모전] 장려상<span class="assume">가정</span></span></li>
+        <li><span class="d">2024.07 – 2025.12</span><span><b>[금속재료 연구실] 학부연구생</b> — 열처리 · 미세조직 관찰 · SEM/XRD 운용</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="end">
+    <div class="wrap">
+      <span class="mono" style="color:#8d8d8d">RESUME</span>
+      <h2 style="margin-top:16px">더 자세한 내용은 이력서에 정리해 두었습니다.</h2>
+      <div class="btns">
+        <a class="btn primary" href="resume.pdf" download>이력서 다운로드 (PDF) <span aria-hidden="true">↓</span></a>
+        <a class="btn tertiary" href="mailto:[이메일]">[이메일] <span aria-hidden="true">→</span></a>
+        <a class="btn tertiary" href="#">GitHub <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="mono">© 2026 [이름] · 강의 실습용 가상 프로필 — '가정' 표시 수치는 실제 값 아님</span>
+    <span class="mono">Design: open-design · IBM Carbon 기반 · 그림 전부 직접 제작</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// 가짜 SEM 미세조직: 보로노이 결정립을 캔버스에 생성 (외부 이미지 없이 저작권 문제 회피)
+(function(){
+  const S=720, raw=document.getElementById('raw'), seg=document.getElementById('seg');
+  raw.width=raw.height=seg.width=seg.height=S;
+  let seed=11; const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+  // 최소 간격을 둔 시드 → 크기가 고른 결정립
+  const pts=[]; for(let t=0;pts.length<40&&t<4000;t++){const p=[rnd()*S,rnd()*S];if(pts.every(q=>(q[0]-p[0])**2+(q[1]-p[1])**2>92*92))pts.push(p)}
+  const N=pts.length, tone=pts.map(()=>95+rnd()*95);
+  // 경계를 살짝 휘게 하는 부드러운 왜곡
+  const wx=(x,y)=>x+7*Math.sin(y*.021+1.3)+4*Math.sin((x+y)*.047),wy=(x,y)=>y+7*Math.sin(x*.019+.4)+4*Math.sin((x-y)*.043);
+  const label=new Int16Array(S*S), gap=new Float32Array(S*S), cx=new Float64Array(N), cy=new Float64Array(N), cnt=new Int32Array(N);
+  const bx0=new Int32Array(N).fill(S), by0=new Int32Array(N).fill(S), bx1=new Int32Array(N), by1=new Int32Array(N);
+  for(let y=0;y<S;y++)for(let x=0;x<S;x++){
+    const X=wx(x,y),Y=wy(x,y); let b=1e12,b2=1e12,bi=0;
+    for(let i=0;i<N;i++){const dx=X-pts[i][0],dy=Y-pts[i][1],d=dx*dx+dy*dy;if(d<b){b2=b;b=d;bi=i}else if(d<b2)b2=d}
+    const k=y*S+x; label[k]=bi; gap[k]=Math.sqrt(b2)-Math.sqrt(b); cx[bi]+=x; cy[bi]+=y; cnt[bi]++;
+    if(x<bx0[bi])bx0[bi]=x; if(x>bx1[bi])bx1[bi]=x; if(y<by0[bi])by0[bi]=y; if(y>by1[bi])by1[bi]=y;
+  }
+  // 석출물(어두운 점)
+  const pits=Array.from({length:26},()=>[rnd()*S,rnd()*S,1.5+rnd()*3]);
+  const r=raw.getContext('2d'), g=seg.getContext('2d'), ri=r.createImageData(S,S);
+  for(let y=0;y<S;y++)for(let x=0;x<S;x++){
+    const k=y*S+x, j=k*4, d=gap[k], l=label[k];
+    // SEM 톤: 결정립 방위 대비 + 위→아래 조도 기울기 + 미세 노이즈 + 경계 홈(어둡게)과 가장자리 밝은 테두리
+    let v=tone[l]*(1.06-.14*y/S)+(rnd()-.5)*26;
+    if(d<2.4)v=28+d*10; else if(d<7)v+=48*(1-(d-2.4)/4.6);
+    for(const p of pits){const q=(x-p[0])**2+(y-p[1])**2;if(q<p[2]*p[2]*4){v=q<p[2]*p[2]?22:v+30;break}}
+    const vig=1-.35*(((x-S/2)**2+(y-S/2)**2)/(S*S/2)); v=Math.max(0,Math.min(255,v*vig));
+    // AI 검출 경계를 파란 선으로 합성
+    if(d<1.8){ri.data[j]=15;ri.data[j+1]=98;ri.data[j+2]=254}else{ri.data[j]=ri.data[j+1]=ri.data[j+2]=v}
+    ri.data[j+3]=255;
+  }
+  r.putImageData(ri,0,0);
+
+  // 측정: 시야 60 μm = 720 px → 1 px = 1/12 μm. 경계에 닿은 결정립은 통계에서 제외 (실제 측정 관례)
+  const UM=60/S, area=i=>cnt[i]*UM*UM, dia=i=>2*Math.sqrt(area(i)/Math.PI);
+  const inner=[...Array(N).keys()].filter(i=>bx0[i]>0&&by0[i]>0&&bx1[i]<S-1&&by1[i]<S-1);
+  const mean=inner.reduce((s,i)=>s+dia(i),0)/inner.length;
+  console.assert(inner.length>=10&&mean>3&&mean<15,'측정 통계 이상',inner.length,mean);
+  const $=id=>document.getElementById(id), box=$('readout');
+  const summary=()=>{box.classList.remove('on');$('r-id').textContent=inner.length+'개';$('r-area').textContent='평균 '+(inner.reduce((s,i)=>s+area(i),0)/inner.length).toFixed(1)+' μm²';$('r-d').textContent='평균 '+mean.toFixed(1)+' μm'};
+  let cur=-1;
+  const show=i=>{
+    if(i===cur)return; cur=i; g.clearRect(0,0,S,S);
+    if(i<0)return summary();
+    const w=bx1[i]-bx0[i]+1,h=by1[i]-by0[i]+1,img=g.createImageData(w,h);
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){const k=(y+by0[i])*S+x+bx0[i];if(label[k]!==i)continue;const j=(y*w+x)*4,e=gap[k]<3.2;
+      img.data[j]=e?255:15;img.data[j+1]=e?255:98;img.data[j+2]=e?255:254;img.data[j+3]=e?255:110}
+    g.putImageData(img,bx0[i],by0[i]);
+    const X=cx[i]/cnt[i],Y=cy[i]/cnt[i],t='#'+String(i+1).padStart(2,'0');
+    g.font='500 22px "IBM Plex Mono", monospace';g.textAlign='center';g.textBaseline='middle';
+    g.fillStyle='#161616';g.fillRect(X-30,Y-15,60,30);g.fillStyle='#fff';g.fillText(t,X,Y+1);
+    const edge=!inner.includes(i);
+    box.classList.add('on');$('r-id').textContent=t+(edge?' (경계 접촉)':'');$('r-area').textContent=area(i).toFixed(1)+' μm²';$('r-d').textContent=dia(i).toFixed(1)+' μm';
+  };
+  const pick=e=>{const b=seg.getBoundingClientRect(),x=Math.floor((e.clientX-b.left)/b.width*S),y=Math.floor((e.clientY-b.top)/b.height*S);
+    if(x>=0&&y>=0&&x<S&&y<S)show(label[y*S+x])};
+  seg.addEventListener('pointermove',pick); seg.addEventListener('pointerdown',pick); seg.addEventListener('pointerleave',()=>show(-1));
+  summary();
+  // 스케일바: 10 μm = 시야 폭의 1/6
+  const bar=document.querySelector('.sembar .sc i'), fit=()=>bar.style.width=seg.clientWidth/6+'px';
+  fit(); addEventListener('resize',fit);
+})();
+
+// 3D 결정 구조 (three.js r128)
+(function(){
+  const host=document.getElementById('xtal');
+  if(!window.THREE){host.insertAdjacentHTML('beforeend','<p class="mono" style="position:absolute;inset:auto 16px 40px">3D 라이브러리를 불러오지 못했습니다 (인터넷 연결 확인)</p>');return}
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(30,1,.1,100);
+  cam.position.set(4.3,3,5.3); cam.lookAt(0,0,0);
+  const ren=new THREE.WebGLRenderer({antialias:true,alpha:true});
+  ren.setPixelRatio(Math.min(devicePixelRatio,2)); host.prepend(ren.domElement);
+  scene.add(new THREE.HemisphereLight(0xffffff,0xc6c6c6,.75));
+  const key=new THREE.DirectionalLight(0xffffff,.8); key.position.set(4,6,5); scene.add(key);
+  const rim=new THREE.DirectionalLight(0x78a9ff,.35); rim.position.set(-5,-2,-4); scene.add(rim);
+
+  const DATA={bcc:{cn:'8',apf:'0.68',a:'2.87 Å',basis:[[.5,.5,.5]]},fcc:{cn:'12',apf:'0.74',a:'3.65 Å',basis:[[.5,.5,0],[.5,0,.5],[0,.5,.5]]}};
+  const geo=new THREE.SphereGeometry(1,40,28);
+  const matCorner=new THREE.MeshStandardMaterial({color:0x0f62fe,roughness:.32,metalness:.25});
+  const matBasis=new THREE.MeshStandardMaterial({color:0x78a9ff,roughness:.32,metalness:.15});
+  const lineMat=new THREE.LineBasicMaterial({color:0x8d8d8d,transparent:true,opacity:.7});
+  const cellMat=new THREE.LineBasicMaterial({color:0x161616});
+  let group=null;
+  const build=s=>{
+    if(group)scene.remove(group);
+    group=new THREE.Group(); const n=2, seen=new Set();
+    const add=(x,y,z,m,r)=>{const k=[x,y,z].map(v=>v.toFixed(2)).join();if(seen.has(k))return;seen.add(k);
+      const a=new THREE.Mesh(geo,m);a.scale.setScalar(r);a.position.set(x-n/2,y-n/2,z-n/2);group.add(a)};
+    for(let i=0;i<=n;i++)for(let j=0;j<=n;j++)for(let k=0;k<=n;k++){
+      add(i,j,k,matCorner,.13);
+      if(i<n&&j<n&&k<n)DATA[s].basis.forEach(b=>add(i+b[0],j+b[1],k+b[2],matBasis,.13));
+    }
+    // FCC 면심 원자는 바깥 면에도 있어야 함
+    if(s==='fcc')for(let i=0;i<n;i++)for(let j=0;j<n;j++){add(i+.5,j+.5,n,matBasis,.13);add(i+.5,n,j+.5,matBasis,.13);add(n,i+.5,j+.5,matBasis,.13)}
+    // 격자선 + 기준 단위정 강조
+    const pts=[];
+    for(let a=0;a<=n;a++)for(let b=0;b<=n;b++){pts.push(0,a,b,n,a,b, a,0,b,a,n,b, a,b,0,a,b,n)}
+    const lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.Float32BufferAttribute(pts.map(v=>v-n/2),3));
+    group.add(new THREE.LineSegments(lg,lineMat));
+    const cell=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1,1,1)),cellMat);cell.position.set(-.5,-.5,-.5);group.add(cell);
+    group.rotation.set(rx,ry,0); scene.add(group);
+    const d=DATA[s];document.getElementById('x-cn').textContent=d.cn;document.getElementById('x-apf').textContent=d.apf;document.getElementById('x-a').textContent=d.a;
+    return seen.size;
+  };
+  let rx=-.25, ry=.6, vx=0, vy=0, drag=null, visible=true;
+  console.assert(build('fcc')===27+36&&build('bcc')===27+8,'원자 수 계산 오류');
+  document.querySelectorAll('.switch button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.switch button').forEach(o=>o.setAttribute('aria-pressed',o===b));build(b.dataset.s)}));
+  host.addEventListener('pointerdown',e=>{drag=[e.clientX,e.clientY];host.setPointerCapture(e.pointerId)});
+  host.addEventListener('pointermove',e=>{if(!drag)return;vy=(e.clientX-drag[0])*.008;vx=(e.clientY-drag[1])*.008;ry+=vy;rx=Math.max(-1.2,Math.min(1.2,rx+vx));drag=[e.clientX,e.clientY]});
+  const end=()=>drag=null; host.addEventListener('pointerup',end); host.addEventListener('pointercancel',end);
+  const size=()=>{const w=host.clientWidth;ren.setSize(w,w,false);cam.aspect=1;cam.updateProjectionMatrix()};
+  size(); addEventListener('resize',size);
+  new IntersectionObserver(es=>visible=es[0].isIntersecting).observe(host);
+  (function loop(){
+    requestAnimationFrame(loop); if(!visible)return;
+    if(!drag){vx*=.92;vy*=.92;ry+=vy+(reduce?0:.0025);rx=Math.max(-1.2,Math.min(1.2,rx+vx))}
+    group.rotation.set(rx,ry,0); ren.render(scene,cam);
+  })();
+})();
+
+// 입체 카드: 정밀 포인터에서만
+if(matchMedia('(hover:hover) and (pointer:fine)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  document.querySelectorAll('.tilt').forEach(el=>{
+    const max=+el.dataset.tilt||3;
+    el.addEventListener('pointermove',e=>{const b=el.getBoundingClientRect(),px=(e.clientX-b.left)/b.width,py=(e.clientY-b.top)/b.height;
+      el.classList.add('active');el.style.setProperty('--gx',px*100+'%');el.style.setProperty('--gy',py*100+'%');
+      el.style.transform='perspective(1200px) rotateX('+((.5-py)*max*2).toFixed(2)+'deg) rotateY('+((px-.5)*max*2).toFixed(2)+'deg) translateZ(0)'});
+    el.addEventListener('pointerleave',()=>{el.classList.remove('active');el.style.transform=''});
+  });
+}
+
+document.documentElement.classList.add('js');
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

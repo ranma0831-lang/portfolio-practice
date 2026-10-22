@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- 결정립 경계 모티프: IBM Blue 바탕 + 흰 경계선 -->
+  <rect width="32" height="32" fill="#0f62fe"/>
+  <path d="M0 13 L9 11 L14 0 M9 11 L12 21 L0 25 M12 21 L23 18 L32 20 M14 0 L19 9 L23 18 M19 9 L32 7 M23 18 L20 32" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+</svg>
